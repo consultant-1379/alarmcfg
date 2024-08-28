@@ -1,0 +1,11 @@
+<?xml version='1.0' encoding='utf-8'?>
+<Context>
+	<WatchedResource>WEB-INF/web.xml</WatchedResource>
+	<Valve
+		className='org.apache.catalina.valves.AccessLogValve'
+		directory='logs'
+		prefix='localhost_access_log.'
+		suffix='.txt'
+		pattern='%h %t %m "%{maskedPath}r" %s %b %D'
+	/>
+</Context>

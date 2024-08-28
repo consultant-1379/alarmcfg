@@ -1,0 +1,25 @@
+<%
+// cache control to prevent the pages from showing out of date data.
+
+response.setHeader("Pragma","no-cache"); //HTTP 1.0
+response.setDateHeader ("Expires", 0); //prevents caching at the proxy server
+%>
+
+<head>
+<link rel="stylesheet" type="text/css" href="css/alarm.css" />
+<link rel="shortcut icon" href="../adminui/img/eric.ico">
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>Ericsson Network IQ - Alarm Configuration Interface</title>
+
+<script type="text/javascript" language="javascript" src="js/Common.js"></script>
+<script type="text/javascript" language="javascript" src="js/SelectReport.js"></script>
+<script language="JavaScript" src="js/PreventXSS.js"></script>
+
+<%
+	if (request.getAttribute("redirect") != null) {
+	  out.println("<meta http-equiv='Content-Type' content='text/html; charset=ISO-8859-1'>");
+	  out.println("<meta http-equiv='refresh' content='3;url="+ request.getAttribute("redirect") +"'>");
+	}
+%>
+
+</head>

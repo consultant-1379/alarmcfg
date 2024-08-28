@@ -1,0 +1,67 @@
+<%@ page import="com.ericsson.eniq.alarmcfg.interfaces.AlarmInterface" %>
+<%@ page import="com.ericsson.eniq.alarmcfg.interfaces.AlarmInterfaceContainer" %>
+<%@ page import="java.util.*"%>
+
+<%!
+
+/*
+ * Below are three helper methods for the main method that is implemented as the last method
+ * in this fragment. The methods generate HTML for the interface column and makes sure that
+ * they are correctly linked and so on.
+ */
+ 
+String getInterfaces(AlarmInterfaceContainer interfaces, boolean disableNonReal) {
+  return getInterfaces(interfaces, disableNonReal, "ExistingAlarms?currentInterface=");
+}
+
+String getInterfaces(AlarmInterfaceContainer interfaces, boolean disableNonReal, boolean disableSelection) {
+  return getInterfaces(interfaces, disableNonReal, null, disableSelection);
+}
+
+String getInterfaces(AlarmInterfaceContainer interfaces, boolean disableNonReal, String url) {
+  return getInterfaces(interfaces, disableNonReal, url, false);
+}
+
+String getInterfaces(AlarmInterfaceContainer interfaces, boolean disableNonReal, String url, boolean disableSelection) {
+    /*
+     * Here we go through all the interfaces and print them accordingly into the inter face
+     * column. If we have a current column, then we mark this via the interface_current
+     * CSS class type.
+     */
+
+    String out = "<div id='interface_column'><div id='interface_title'>Interfaces:</div>";
+
+    if (interfaces != null) {
+      // enumerate.
+      Enumeration<AlarmInterface> elements = interfaces.getElements();
+      while (elements.hasMoreElements()) {
+        // print the link for this interface.
+        AlarmInterface currentInterface = elements.nextElement();
+        if (disableNonReal && !currentInterface.isRealInterface()) {
+          // the flag states we should not print this interface. Skip it and move on.
+          continue;
+        } else {
+          // we should print the interface, give the selected interface a special div class and disable clicking it.
+          if (currentInterface.isSelected()) {
+            out += "<div class='interface_current'>";
+          } else {
+            out += "<div class='interface'>";
+          }
+          if (!disableSelection) {
+            out += "<a href='" + url + currentInterface.getId() + "'>";  
+            out += currentInterface.getName() + "</a>";
+          } else {
+            out += currentInterface.getName();
+          }
+          out += "</div>";
+        }
+      }
+    } else {
+      // print an error message.
+      out += "<div class='interface_error'>No interfaces reported!</div>";
+    }
+
+    out += "</div>";
+
+    return out;
+  }%>

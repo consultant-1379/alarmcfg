@@ -1,0 +1,31 @@
+<project name="alarmcfg" default="test_all">
+	<property name="module.name" value="alarmcfg" />
+	<property file="${user.home}/EniqBuild/BH/build.properties" />
+	<property name="ant.common" value="${cc.base}/tools/ant_common" />
+	<property file="${ant.common}/common.properties" />
+	<property name="module.base" value="${module.alarmcfg.base}" />
+	<property name="module.build" value="${module.alarmcfg.build}" />
+	<property name="module.dependants" value="${module.alarmcfg.dependants}" />
+	<import file="${ant.common}/common.xml" />
+	<property name="tests.to.run" value="**/*Test.class" />
+
+	<property name="mods.needed" value="" />
+
+	<path id="alarmcfg.lib.classpath">
+		<path refid="plaform.lib.classpath" />
+		<path refid="servlet_api" />
+		<path refid="business_objects" />
+		<path location="${module.repository.pkg}" />
+		<path location="${module.licensing.pkg}" />
+		<path location="${module.engine.pkg}" />
+		<path location="${module.common_utilities.pkg}" />		
+		<path location="${module.jconn.pkg}" />
+	</path>
+	<path id="alarmcfg.test.classpath">
+		<path refid="platform.test.classpath" />
+		<path refid="alarmcfg.lib.classpath" />
+		<path location="${module.alarmcfg.base}/templates" />
+		<path location="${module.alarmcfg.base}/test" />
+	</path>
+
+</project>

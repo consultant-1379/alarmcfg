@@ -1,0 +1,68 @@
+<project name="alarmcfg" basedir="." default="install">
+
+	<property name="dcinstall.require.adminui" value="> 5-0-0b449"/>
+
+	<target name="install">
+
+		<!-- Shutdown if we have a running webserver -->
+
+		<if>
+			<available file="${dc.bin.dir}/webserver"/>
+			<then>
+				<exec dir="${dc.bin.dir}" executable="webserver">
+					<arg line="stop"/>
+				</exec>
+			</then>
+		</if>
+
+		<!-- Checks that directories exists -->
+
+		<mkdir dir="${dc.log.dir}/alarmcfg"/>
+		<mkdir dir="${dc.runtime.dir}/tomcat/webapps/alarmcfg"/>
+		
+		
+		<!-- Make sure that there is no WEB-INF/lib directory -->
+		<if>
+			<available file="${dc.runtime.dir}/tomcat/webapps/alarmcfg/WEB-INF/lib" type="dir" />
+			<then>
+				<delete dir="${dc.runtime.dir}/tomcat/webapps/alarmcfg/WEB-INF/lib" failonerror="false" />
+			</then>
+		</if>
+
+		<!-- Extract the war package -->
+
+		<unwar src="${dc.installer.dir}/tmp/install/alarmcfg.war" dest="${dc.runtime.dir}/tomcat/webapps/alarmcfg"/>
+
+		<!-- Starting up webserver -->
+
+		<if>
+			<available file="${dc.bin.dir}/webserver"/>
+			<then>
+				<exec dir="${dc.bin.dir}" executable="webserver">
+					<arg line="start"/>
+				</exec>
+			</then>
+		</if>
+
+	</target>
+
+	<target name="update">
+		<!-- Remove the Tomcat JSP cache. -->
+		<if>
+			<available file="${dc.runtime.dir}/tomcat/work/Catalina/localhost/alarmcfg/tldCache.ser"/>
+			<then>
+				<delete file="${dc.runtime.dir}/tomcat/work/Catalina/localhost/alarmcfg/tldCache.ser" failonerror="false"/>
+			</then>
+		</if>
+
+		<if>
+			<available file="${dc.runtime.dir}/tomcat/work/Catalina/localhost/alarmcfg/org" type="dir"/>
+			<then>
+				<delete dir="${dc.runtime.dir}/tomcat/work/Catalina/localhost/alarmcfg/org" failonerror="false"/>
+			</then>
+		</if>
+
+		<antcall target="install"/>
+	</target>
+
+</project>

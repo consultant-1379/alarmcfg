@@ -1,0 +1,11 @@
+<%!
+
+String getLocationButton(String name, String location) {
+	String out = "<div class='location_button'><form action=\""+ location +"\" method='LINK'>";
+	out += "<input type='submit' value='"+ name + "'>";
+	out += "</form></div>";
+	
+	return out;
+}
+
+%>

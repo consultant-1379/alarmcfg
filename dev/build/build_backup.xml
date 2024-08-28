@@ -1,0 +1,130 @@
+<project name="alarmcfg" default="compile" xmlns:sonar="antlib:org.sonar.ant">
+
+	<property name="pack.name" value="alarmcfg"/>
+	<property name="pack.version" value="2-0-0"/>
+	<property name="pack.dir" value="/proj/eiffel013_config_fem6s11/eiffel_home/jobs/Git_alarmcfg_build/alarmcfg/dev"/>
+
+	<!-- LIBRARY PATHS -->
+	<property name="3pp.dir" value="/proj/eiffel013_config_fem6s11/3pp"/>
+
+	<property name="eniq.repository.dir" value="/proj/eiffel013_config_fem6s11/eiffel_home/jobs/Git_alarmcfg_build/repository/build/repository/"/>
+	<property name="eniq.licensing.dir" value="/proj/eiffel013_config_fem6s11/eiffel_home/jobs/Git_alarmcfg_build/licensing/build/licensing/"/>
+	<property name="eniq.engine.dir" value="/proj/eiffel013_config_fem6s11/eiffel_home/jobs/Git_alarmcfg_build/engine/build/engine/"/>
+	<property name="eniq.common_utilities.dir" value="/proj/eiffel013_config_fem6s11/eiffel_home/jobs/Git_alarmcfg_build/common_utilities/build/common_utilities/"/>
+	<property name="bosdk.dir" value="${3pp.dir}/business_objects/bosdk/v4.3_SP2/prod"/>
+	<property name="jconn.dir" value="${3pp.dir}/sybase/sybase_iq"/><!-- jconn jar -->
+	
+	<!-- LIBRARIES USED FOR BUILDING ONLY! -->
+	<property name="servlet.jar" value="${3pp.dir}/apache/tomcat/v8_5_76/prod/servlet-api.jar"/>
+	
+	<target name="precompile"/>
+
+	<target name="compile" depends="create_war"/>
+
+	<target name="create_war" depends="compile_java">
+		<war destfile="${pack.dir}/install/alarmcfg.war" webxml="${pack.dir}/web/WEB-INF/web.xml">
+			<classes dir="${pack.dir}/classes"/>
+			<fileset dir="${pack.dir}/web" excludes="WEB-INF/web.xml"/>
+			<lib dir="${bosdk.dir}"/>
+			<fileset dir="${jconn.dir}">
+			<include name="**/*.jar" />
+			</fileset>
+			<!-- install.xml takes care of deploying ENIQ jars! -->
+			<!-- <lib file="${repository.dir}/repository.jar" /> -->
+			<!-- <lib file="${licensing.dir}/licensing.jar" /> -->
+		</war>
+
+	</target>
+
+	<target name="compile_java">
+		<mkdir dir="${pack.dir}/classes"/>
+		<javac srcdir="${pack.dir}/src" destdir="${pack.dir}/classes" failonerror="true" debug="on" optimize="off" deprecation="off">
+<compilerarg value="-Xlint:all" />
+<compilerarg line="-Xmaxwarns 1000" />
+			<classpath>
+				<pathelement path="${classpath}"/>
+				<pathelement path="${eniq.repository.dir}/repository.jar"/>
+				<fileset dir="${jconn.dir}">
+				<include name="**/*.jar" />
+				</fileset>
+				<pathelement path="${eniq.licensing.dir}/licensing.jar"/>
+				<pathelement path="${eniq.engine.dir}/engine.jar"/>
+				<pathelement path="${eniq.common_utilities.dir}/common.jar"/>
+				<fileset dir="${bosdk.dir}">
+					<include name="**/*.jar"/>
+				</fileset>
+				<pathelement path="${servlet.jar}"/>
+			</classpath>
+		</javac>
+	</target>
+
+	<target name="postcompile"/>
+
+    <!-- ========= Define the main properties of this project ========= -->
+    <property name="src.dir" value="src" />
+    <property name="build.dir" value="target" />
+    <property name="classes.dir" value="${build.dir}/classes" />
+
+    <!-- Define the SonarQube global properties (the most usual way is to pass these properties via the command line) -->
+    <property name="sonar.host.url" value="https://sonarqube.lmera.ericsson.se" />
+
+    <!-- Define the Sonar properties -->
+    <property name="sonar.projectKey" value="sonarqube-scanner-alarmcfg" />
+    <property name="sonar.projectName" value="Eniq Alarmcfg" />
+    <property name="sonar.projectVersion" value="1.0" />
+    <property name="sonar.sources" value="/proj/eiffel013_config_fem6s11/eiffel_home/jobs/Git_alarmcfg_build/alarmcfg/dev/src" />
+    <property name="sonar.java.binaries" value="/proj/eiffel013_config_fem6s11/eiffel_home/jobs/Git_alarmcfg_build/alarmcfg/dev" />
+    <property name="sonar.sourceEncoding" value="UTF-8" />
+    <property name="sonar.login" value="b140730794b2b53dc841840498358c11213d3ba9" />
+    <property name="sonar.projectBaseDir" value="/proj/eiffel013_config_fem6s11/eiffel_home/jobs/Git_alarmcfg_build/alarmcfg/dev" />
+
+    <target name="compile_sonar">
+        <javac srcdir="${pack.dir}/src" destdir="${pack.dir}/classes" fork="true" debug="true" includeAntRuntime="false" />
+    </target>
+
+    <!-- ========= Define SonarQube Scanner for Ant Target ========= -->
+    <target name="sonar">
+        <taskdef uri="antlib:org.sonar.ant" resource="org/sonar/ant/antlib.xml">
+            <!-- Update the following line, or put the "sonar-ant-task-*.jar" file in your "$HOME/.ant/lib" folder -->
+            <classpath path="/proj/esjkadm100/Sonar/sonarqube-ant-task-2.7.0.1612.jar" />
+        </taskdef>
+
+        <!-- Execute SonarQube Scanner for Ant Analysis -->
+        <sonar:sonar />
+    </target>
+    <target name="clean">
+        <delete dir="${pack.dir}/classes"/>
+    </target>
+
+    <!-- ========= The main target "all" ========= -->
+    <target name="all_sonar" depends="sonar,clean" />
+
+
+
+<target name="sonarQualityCheck" description="SonarQube Quality Gate check"> 
+	 <exec executable="/bin/sh" outputproperty="qualitySleep"> 
+		 <arg value="-c" /> 
+		 <arg value="sleep 60" /> 
+	 </exec>
+	<exec executable="curl" outputproperty="sonarreturnCode">
+		<arg value="-o" />
+		<arg value="/proj/esjkadm100/Sonar/sonarOut.txt" />
+		<arg value="-k" />
+        <arg value="-u" />
+        <arg value="${sonar.login}:" />
+        <arg value="https://sonarqube.lmera.ericsson.se/api/qualitygates/project_status?projectKey=${sonar.projectKey}" />
+    </exec>
+    <exec executable="/bin/sh" outputproperty="sonarCode">
+        <arg value="-c" />
+        <arg value="/proj/eiffel013_config_fem6s11/tools/sonarQualityGateCheck.sh" />
+    </exec>
+    <echo message="Quality report returned ${sonarCode}"/>
+    <condition property="qualityMatch">
+        
+            <equals arg1="${sonarCode}" arg2="ERROR"/>
+        
+    </condition>
+    <fail if="qualityMatch" message="Quality check did not pass, hence marking build as failed!!!."/>
+</target>
+
+</project>

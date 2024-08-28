@@ -1,0 +1,336 @@
+BODY {
+	margin: 5;
+	padding: 0;
+	font-family: sans-serif;
+	font-size: 10pt;
+	font-weight: normal;
+}
+
+#main {
+	margin: 0;
+}
+
+#masthead {
+	width: 990px;
+	background: #336699 url(../img/page_header_fade.jpg) repeat-y top left;
+	color: #ffffff;
+	clear: both;
+}
+
+#masthead .eniq_logo {
+	float: left;
+}
+
+.location_button {
+	clear: both;
+	width: 100%;
+	text-align: center;
+}
+
+#masthead .marketunit {
+	padding: 4px 9px 5px 0;
+	color: #c1d1e0; 
+	font-size: 90%;
+	text-align: right;
+	text-transform: uppercase;
+	text-decoration: none;
+}
+
+#masthead .marketunit a:link,
+#masthead .marketunit a:visited,
+#masthead .marketunit a:active {
+	text-decoration: none;
+	text-transform: none;
+	color: #c1d1e0; 
+}
+
+#masthead .marketunit a:hover {
+	text-decoration: underline;
+	text-transform: none;
+	color: #c1d1e0; 
+}
+
+#whole_frame {
+	width: 990px;
+	margin-top: 20px;
+	position: relative;
+}
+
+#left_column {
+	width: 155px;
+	float: left;
+	background: #003258;
+}
+
+#left_column_first_page {
+	width: 0px;
+	float: left;
+	background: white;
+}
+
+#actions_column,
+#interface_column {
+	padding-left: 6px;
+	padding-right: 6px;
+	padding-top: 10px;
+	padding-bottom: 20px;
+	color: black;
+}
+
+.action,
+#actions_column_title,
+.interface,
+#interface_title,
+.interface_current {
+	padding-left: 6px;
+	padding-right: 6px;
+	padding-top: 10px;
+	padding-bottom: 10px;
+	font-family: sans-serif;
+	margin-left: 12px;
+	font-size: 13pt;
+	font-weight: normal;
+	width: 100%;
+	color: #c1d1e0; 
+	border-left: 1px solid #6666DD;
+}
+
+#actions_column_title,
+#interface_title {
+	margin-left: 0px;
+	margin-bottom: 5px;
+	font-size: 12pt;
+	font-weight: bold;
+	border: none;
+}
+
+.action a:link,
+.action a:visited,
+.action a:hover,
+.action a:active,
+.interface a:link,
+.interface a:visited,
+.interface a:active {
+	text-decoration: none;
+	color: #c1d1e0; 
+}
+
+.interface a:hover {
+	text-decoration: underline;
+	color: #c1d1e0; 
+}
+
+.interface_current a:hover {
+	text-decoration: underline;
+	color: white;	
+}
+
+.interface_current a:link,
+.interface_current a:visited,
+.interface_current a:active,
+.interface_current {
+	text-decoration: none;
+	color: white;
+	font-weight: bold;
+}
+
+.interface_current a:link,
+.interface_current a:visited,
+.interface_current a:active {
+	text-decoration: none;
+	color: white;
+	font-weight: bold;
+}
+
+.interface_current a:hover {
+	text-decoration: underline;
+	color: white;
+	font-weight: bold;
+}
+
+.error,
+.main_message {
+	border: 1px solid black;
+	width: 90%;
+	text-align: center;
+	padding: 5px;
+	margin: 5px 5px 10px 5px;
+	color: red;
+	font-family: sans-serif;
+	font-size: 10pt;
+	font-weight: bold;
+}
+
+.info_message {
+	border: 1px solid black;
+	width: 100%;
+	text-align: center;
+	padding: 5px;
+	margin: 5px 5px 10px 5px;
+	color: green;
+	font-family: sans-serif;
+	font-size: 10pt;
+	font-weight: bold;
+}
+
+#main_column {
+	margin: 10px;
+	float: left;
+	width: 750px;
+}
+
+#page_title {
+	font-size: 22pt;
+	font-family: sans-serif;
+	margin-bottom: 10px;
+	width: 100%;
+	border-bottom: 1px solid #DDDDDD;
+}
+
+#action_title {
+	margin-left: 10px;
+	font-size: 16pt;
+	font-family: sans-serif;
+}
+
+#login_table {
+	margin: 0 auto;
+	position: absolute;
+	left: 11%;
+	border: 0;
+	font-family: sans-serif;
+}
+
+#login_table .description {
+	text-align: left;
+	font-weight: normal;
+	margin-right: 5px;
+}
+
+#login_table .value {
+	width: 120px;
+	margin: 0;
+}
+
+#login_table SELECT {
+	width: 100%;
+}
+
+#login_table INPUT[type ^='submit'] {
+	margin-top: 15px;
+}
+
+#parameter_table .parameter_desc {
+	width: 180px;
+}
+
+#parameter_table .parameter_value {
+	width: 400px;
+}
+
+#parameter_table .parameter_value SELECT {
+	width: 100%;
+}
+#parameter_table .promptvalue_warning {
+	width: 100%;
+	font-weight: bold;
+	color: black;
+}
+
+#parameter_table INPUT[type ^='submit'] {
+	margin-top: 15px;
+}
+
+#parameter_table .parameter_title {
+	font-weight: bold;
+}
+
+#parameter_table .table_spacer {
+	height: 5px;
+	width: 100%;
+}
+
+#parameter_table {
+}
+
+#report_table {
+	width: 750px;
+	margin: 10px;
+	border-collapse: collapse;
+	border: 1px solid #999999;
+	font-family: sans-serif;
+}
+
+#report_table TH,
+#report_table TD {
+	text-align: left;
+	border: 1px solid #999999;
+	font-size: 10pt;
+	font-family: sans-serif;
+	padding-left: 5px;
+	padding-right: 5px;
+}
+
+#report_table TH {
+	font-weight: bold;
+	border: none;
+	background: #DDDDDD;	
+}
+
+#report_table TD {
+	text-decoration: none;
+}
+
+#report_table TD a:link,
+#report_table TD a:visited,
+#report_table TD a:hover,
+#report_table TD a:active {
+	text-decoration: none;
+}
+
+#report_table IMG {
+	text-align: center;
+	border: 0;
+}
+
+.prompt_table {
+	width: 100%;
+	border: 0;
+	margin: 1px;
+	border-collapse: collapse;
+	font-family: sans-serif;
+}
+
+.prompt_table TD,
+.prompt_table TH {
+	text-align: left;
+	width: auto;
+	min-width: 30%;
+	border: 0;
+	border-collapse: collapse;
+	font-size: 10pt;
+	font-family: sans-serif;
+	padding-left: 5px;
+	padding-right: 5px;
+}
+
+.prompt_table TH {
+	font-weight: bold;
+	border: none;
+	background: #DDDDDD;	
+}
+
+TD a:link,
+TD a:visited,
+TD a:hover,
+TD a:active {
+	text-decoration: none;
+	color: black;
+}
+
+.error {
+	color: red;
+}
+.indented {
+padding: 130px 20px 0;
+}

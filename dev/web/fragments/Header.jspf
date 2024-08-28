@@ -1,0 +1,30 @@
+<%@ page import="com.ericsson.eniq.alarmcfg.authenticate.AuthSession"%>
+<%@ page import="java.util.*"%>
+
+<%
+  AuthSession asession = (AuthSession) session.getAttribute("authsession");
+%>
+
+<div id="masthead">&nbsp;
+	<div class="eniq_logo">&nbsp;<img src="img/eniq_alarm_logo.png"
+		alt="ENIQ Alarm Configuration" />&nbsp;</div>
+	<div class="marketunit">
+		<div class="marketunit">&nbsp;<img
+			src="img/ericsson_logo_notagline.png" alt="Ericsson"></img></div>
+		<div class="marketunit"> <%
+   		if (asession != null) {
+   		 	out.print("Logged&nbsp;in&nbsp;as:&nbsp;");   		  
+     		out.print(asession.getUserName());
+   		} else {
+     		out.print("&nbsp;");
+   		}%>
+		&nbsp;
+		</div>
+		<div class="marketunit">
+   		<% if (asession != null) {  %>
+			<a href="Logout">Logout</a>
+   		<% } %>
+		&nbsp;
+		</div>
+	</div>
+</div>
